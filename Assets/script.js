@@ -1,3 +1,45 @@
+
+
+var currentDate = dayjs().format("dddd, MMMM D, YYYY, h:mm a");
+var displayDate = document.querySelector("currentDay");
+var currentTime = dayjs().hour()
+var timeBlocks = $(".time-block")
+var descriptionBlock = $(".description")
+console.log(currentTime)
+$("#currentDay").html(currentDate)
+
+
+$(document).ready(function () {
+  $(".saveBtn").on("click", function () {
+    var text = $(this).siblings(".description").val();
+    var time = $(this).parent().attr("id");
+    console.log($(this))
+    localStorage.setItem(time, text);
+  })
+})
+
+
+//"15" == 15
+//"15" === 15
+
+timeBlocks.each(function () {
+  if (currentTime == $(this).attr("id").substring(5)) {
+    $(this).addClass("present")
+  } else if (currentTime > $(this).attr("id").substring(5)) {
+    $(this).addClass("past")
+  } else {
+    $(this).addClass("future")
+  }
+})
+
+
+descriptionBlock.each(function () {
+  //if ($this).parent().attr
+  console.log($(this).parent().attr("id"))
+  $(this).val(localStorage.getItem($(this).parent().attr("id")))
+})
+
+
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -21,3 +63,6 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+
+
